@@ -1,0 +1,10 @@
+# ignore a local directory
+.DS_Store
+*.o
+*.i
+*~
+.vagrant
+!etc/*
+!include/*
+!lib/*
+!sample/*
