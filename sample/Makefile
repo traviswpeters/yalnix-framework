@@ -1,6 +1,6 @@
 #
 #	Sample Makefile for Yalnix kernel and user programs.
-#	
+#
 #	Prepared by Sean Smith and Adam Salem and various Yalnix developers
 #	of years past...
 
@@ -10,15 +10,15 @@
 K_SRC_DIR = .
 
 # What are the kernel c and include files?
-K_SRCS = 
-K_INCS = 
+K_SRCS =
+K_INCS =
 
 # Where's your user source?
 U_SRC_DIR = ./test
 
 # What are the user c and include files?
-U_SRCS = 
-U_INCS = 
+U_SRCS =
+U_INCS =
 
 
 #==========================================================
@@ -32,15 +32,15 @@ KERNEL_ALL = yalnix
 
 # Automatically generate the list of sources, objects, and includes for the kernek
 KERNEL_SRCS = $(K_SRCS:%=$(K_SRC_DIR)/%)
-KERNEL_OBJS = $(KERNEL_SRCS:%.c=%.o) 
-KERNEL_INCS = $(K_INCS:%=$(K_SRC_DIR)/%) 
+KERNEL_OBJS = $(KERNEL_SRCS:%.c=%.o)
+KERNEL_INCS = $(K_INCS:%=$(K_SRC_DIR)/%)
 
 
 # Automatically generate the list of apps, sources, objects, and includes for your userland coden
 USER_SRCS = $(U_SRCS:%=$(U_SRC_DIR)/%)
 USER_OBJS = $(USER_SRCS:%.c=%.o)
 USER_APPS = $(USER_SRCS:%.c=%)
-USER_INCS = $(U_INCS:%=$(U_SRC_DIR)/%) 
+USER_INCS = $(U_INCS:%=$(U_SRC_DIR)/%)
 
 #write to output program yalnix
 YALNIX_OUTPUT = yalnix
@@ -50,14 +50,14 @@ YALNIX_OUTPUT = yalnix
 #Use the gcc compiler for compiling and linking
 CC = gcc
 
-DDIR58 = /yalnix
-LIBDIR = $(DDIR58)/lib
-INCDIR = $(DDIR58)/include
-ETCDIR = $(DDIR58)/etc
+YALDIR = /yalnix
+LIBDIR = $(YALDIR)/lib
+INCDIR = $(YALDIR)/include
+ETCDIR = $(YALDIR)/etc
 #LIBRARY_PATH = $(ETCDIR)/linking/lib
 
 # any extra loading flags...
-LD_EXTRA = 
+LD_EXTRA =
 
 KERNEL_LIBS = $(LIBDIR)/libkernel.a $(LIBDIR)/libhardware.so
 
@@ -73,7 +73,7 @@ LINK_KERNEL = $(LINK.c)
 
 USER_LIBS = $(LIBDIR)/libuser.a
 ASFLAGS = -D__ASM__
-CPPFLAGS= -m32 -fno-builtin -I. -I$(INCDIR) -g -DLINUX 
+CPPFLAGS= -m32 -fno-builtin -I. -I$(INCDIR) -g -DLINUX
 
 
 ##########################
@@ -88,7 +88,7 @@ CPPFLAGS= -m32 -fno-builtin -I. -I$(INCDIR) -g -DLINUX
 # %.o: %.c: rules for setting up dependencies.  Don't use this directly
 # %: %.o: rules for setting up dependencies.  Don't use this directly
 
-all: $(ALL)	
+all: $(ALL)
 
 clean:
 	rm -f *.o *~ TTYLOG* TRACE $(YALNIX_OUTPUT) $(USER_APPS) $(KERNEL_OBJS) $(USER_OBJS) core.* ~/core
@@ -109,14 +109,4 @@ $(KERNEL_ALL): $(KERNEL_OBJS) $(KERNEL_LIBS) $(KERNEL_INCS)
 	$(LINK_KERNEL) -o $@ $(KERNEL_OBJS) $(KERNEL_LDFLAGS)
 
 $(USER_APPS): $(USER_OBJS) $(USER_INCS)
-	$(ETCDIR)/yuserbuild.sh $@ $(DDIR58) $@.o
-
-
-
-
-
-
-
-
-
-
+	$(ETCDIR)/yuserbuild.sh $@ $(YALDIR) $@.o
