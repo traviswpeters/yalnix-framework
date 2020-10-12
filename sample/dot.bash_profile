@@ -45,6 +45,12 @@ sudo timedatectl set-timezone America/Denver
 ulimit -c unlimited
 sudo sysctl -w kernel.core_pattern=/home/vagrant/core > /dev/null 2>&1
 
+# get updates to the framework
+if [ -d "/yalnix/" ]; then
+	echo "I'm gonna try to update your yalnix-framework/ files real quick..."
+	cd /yalnix && git pull
+fi
+
 ###
 ### Any other user specific environment and startup programs
 ###
