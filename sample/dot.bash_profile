@@ -48,7 +48,7 @@ sudo sysctl -w kernel.core_pattern=/home/vagrant/core > /dev/null 2>&1
 # get updates to the framework
 if [ -d "/yalnix/" ]; then
 	echo "I'm gonna try to update your yalnix-framework/ files real quick..."
-	cd /yalnix && git pull
+	cd /yalnix && git pull && cd
 fi
 
 ###
